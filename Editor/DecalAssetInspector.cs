@@ -47,7 +47,7 @@ namespace SamDriver.Decal
         static int boundsID = Shader.PropertyToID("_Bounds");
 
         static string[] essentialMaterialProperties = new string[] {
-            "_DiffuseAlpha",
+            "_DiffuseAlpha", // Texture
             "_Bounds",
         };
         static string[] supportedMaterialProperties = new string[] {
@@ -64,6 +64,7 @@ namespace SamDriver.Decal
 
         SerializedProperty material;
         SerializedProperty uMin, vMin, uMax, vMax;
+        SerializedProperty textureName, diffuseAlphaID;
 
         void OnEnable()
         {
@@ -74,6 +75,27 @@ namespace SamDriver.Decal
             vMin = serializedObject.FindProperty("vMin");
             uMax = serializedObject.FindProperty("uMax");
             vMax = serializedObject.FindProperty("vMax");
+
+            textureName = serializedObject.FindProperty("textureName");
+            diffuseAlphaID = serializedObject.FindProperty("diffuseAlphaID");
+
+            var selectedMaterial = (Material)material.objectReferenceValue;
+            if (selectedMaterial != null)
+            {
+                selectedMaterial.EnableKeyword("_USE_DRIVEN_DECAL");
+
+                bool hasDiffuseAlpha = selectedMaterial.HasProperty("_DiffuseAlpha");
+                if (hasDiffuseAlpha || selectedMaterial.HasProperty("_BaseMap"))
+                {
+                    textureName.stringValue = hasDiffuseAlpha
+                        ?  "_DiffuseAlpha"
+                        : "_BaseMap";
+
+                    diffuseAlphaID.intValue = Shader.PropertyToID(textureName.stringValue);
+                    essentialMaterialProperties[0] = textureName.stringValue;
+                    serializedObject.ApplyModifiedProperties();
+                }
+            }
         }
 
         public override void OnInspectorGUI()
@@ -121,6 +143,19 @@ namespace SamDriver.Decal
         void PreviewSettingsGUI()
         {
             previewBackColour = EditorGUILayout.ColorField("Preview background:", previewBackColour);
+            string newTextureName = EditorGUILayout.TextField("Texture Name", textureName.stringValue);
+            int newTextureID = Shader.PropertyToID(newTextureName);
+
+            if (newTextureName != textureName.stringValue || diffuseAlphaID.intValue != newTextureID)
+            {
+                diffuseAlphaID.intValue = newTextureID;
+                textureName.stringValue = newTextureName;
+            }
+
+            if( essentialMaterialProperties[0] != newTextureName )
+            {
+                essentialMaterialProperties[0] = newTextureName;
+            }
         }
 
         void PreviewAndRegionSelectionGUI()
@@ -258,18 +293,14 @@ namespace SamDriver.Decal
 
         Vector2 PositionOnTextureInUV(Rect displayRegion, Vector2 positionInRegion)
         {
-            return new Vector2(
-          positionInRegion.x / displayRegion.width,
-          1f - (positionInRegion.y / displayRegion.height)
-            );
+            return new Vector2(positionInRegion.x / displayRegion.width, 1f - (positionInRegion.y / displayRegion.height));
         }
 
         /// <summary>
         /// RenderStaticPreview is poorly documented. Nonetheless this produces a nice
         /// square thumbnail preview of the decal.
         /// </summary>
-        public override Texture2D RenderStaticPreview(string assetPath, UnityEngine.Object[] subAssets,
-        int width, int height)
+        public override Texture2D RenderStaticPreview(string assetPath, Object[] subAssets, int width, int height)
         {
             DecalAsset decalAsset = (DecalAsset)target;
             if (decalAsset == null || !decalAsset.HasDiffuseAlphaTexture)

@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd7be7c3532c974c919d1b2a4cf439b, type: 3}
   m_Name: Dimple in
   m_EditorClassIdentifier: 
+  textureName: _DiffuseAlpha
+  diffuseAlphaID: 589
   Material: {fileID: 2100000, guid: 41cdeb38201dd97469527bde6ed67f4b, type: 2}
-  uMin: 0.34705356
-  vMin: 0.59540737
-  uMax: 0.65414065
-  vMax: 0.9045201
+  uMin: 0.3689095
+  vMin: 0.5290023
+  uMax: 0.90951276
+  vMax: 0.5684455

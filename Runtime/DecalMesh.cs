@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.Rendering;
+using RenderPipeline = UnityEngine.Rendering.RenderPipelineManager;
 
 namespace SamDriver.Decal
 {

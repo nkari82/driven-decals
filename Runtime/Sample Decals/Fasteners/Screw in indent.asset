@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cd7be7c3532c974c919d1b2a4cf439b, type: 3}
   m_Name: Screw in indent
   m_EditorClassIdentifier: 
+  textureName: _DiffuseAlpha
+  diffuseAlphaID: 589
   Material: {fileID: 2100000, guid: 41cdeb38201dd97469527bde6ed67f4b, type: 2}
   uMin: 0.6772154
   vMin: 0.24007255

@@ -10,8 +10,8 @@ namespace SamDriver.Decal
     /// </summary>
     public class DecalAsset : ScriptableObject
     {
-        static int diffuseAlphaID = Shader.PropertyToID("_DiffuseAlpha");
-
+        public string textureName = "_BaseMap";
+        public int diffuseAlphaID = Shader.PropertyToID("_BaseMap");
         public Material Material;
 
         // bounds in uv space
