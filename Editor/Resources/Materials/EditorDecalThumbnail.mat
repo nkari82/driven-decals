@@ -87,7 +87,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Bounds: {r: 0.069767445, g: 0.08305648, b: 0.9501661, a: 0.9335548}
+    - _Bounds: {r: 0.093023255, g: 0.10963455, b: 0.77740866, a: 0.8803987}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColourForAlpha: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
