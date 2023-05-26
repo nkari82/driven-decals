@@ -1,4 +1,7 @@
 # Changelog
+## [0.8.1] - 2023-05-26
+### Added
+- OffsetZ in ClipSpace(resolved conflict Z-Fighting)
 
 ## [0.7.0] - 2020-06-09
 ### Added

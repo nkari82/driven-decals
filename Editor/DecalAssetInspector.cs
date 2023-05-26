@@ -49,6 +49,7 @@ namespace SamDriver.Decal
         static string[] essentialMaterialProperties = new string[] {
             "_DiffuseAlpha", // Texture
             "_Bounds",
+            "_OffsetZ"
         };
         static string[] supportedMaterialProperties = new string[] {
             "_Opacity",

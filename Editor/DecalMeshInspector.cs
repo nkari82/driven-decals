@@ -10,7 +10,7 @@ namespace SamDriver.Decal
         SerializedProperty decalAsset, opacity, zFadeDistance, isFlipU, isFlipV,
           minAngleFadeDegrees, maxAngleFadeDegrees, drawOrder,
           shouldUseAllSceneStaticMeshes, meshesToProjectAgainst,
-          shouldReprojectOnMove;
+          shouldReprojectOnMove, offsetZ;
 
         void OnEnable()
         {
@@ -25,6 +25,7 @@ namespace SamDriver.Decal
             shouldUseAllSceneStaticMeshes = serializedObject.FindProperty(nameof(DecalMesh.ShouldUseSceneStaticMeshes));
             meshesToProjectAgainst = serializedObject.FindProperty(nameof(DecalMesh.MeshesToProjectAgainst));
             shouldReprojectOnMove = serializedObject.FindProperty(nameof(DecalMesh.ShouldReprojectOnMove));
+            offsetZ = serializedObject.FindProperty(nameof(DecalMesh.OffsetZ));
         }
 
         public override void OnInspectorGUI()
@@ -45,6 +46,7 @@ namespace SamDriver.Decal
             DecalPickerGUI(primaryItem, items, isEditingMultipleObjects);
             OpacityOptionsGUI();
             DrawOrderOptionsGUI();
+            OffsetZGUI();
             FlipOptionsGUI();
             TargetMeshesGUI();
 
@@ -196,6 +198,7 @@ namespace SamDriver.Decal
             maxAngleFadeDegrees.floatValue = max;
         }
 
+
         void FlipOptionsGUI()
         {
             using (EditorGUIUtility.wideMode ? new EditorGUILayout.HorizontalScope() : null)
@@ -208,6 +211,11 @@ namespace SamDriver.Decal
         void DrawOrderOptionsGUI()
         {
             EditorGUILayout.IntSlider(drawOrder, 0, 100, "Draw Order");
+        }
+
+        void OffsetZGUI()
+        {
+            EditorGUILayout.PropertyField(offsetZ, new GUIContent("OffsetZ"));
         }
 
         void TargetMeshesGUI()

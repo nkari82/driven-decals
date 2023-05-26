@@ -22,6 +22,8 @@ namespace SamDriver.Decal
         public bool IsFlipU = false;
         public bool IsFlipV = false;
         public int DrawOrder = 0;
+        [Range(0, 1)]
+        public float OffsetZ = 0.01f;
         public bool ShouldUseSceneStaticMeshes = true;
         public List<MeshFilter> MeshesToProjectAgainst = new List<MeshFilter>();
         public bool ShouldReprojectOnMove = false;
@@ -73,6 +75,7 @@ namespace SamDriver.Decal
         static int flipUID = Shader.PropertyToID("_FlipU");
         static int flipVID = Shader.PropertyToID("_FlipV");
         static int zNudgeID = Shader.PropertyToID("_ZNudge");
+        static int offsetZID = Shader.PropertyToID("_OffsetZ");
 
         public bool IsGeneratedMeshEmpty
         {
@@ -182,6 +185,7 @@ namespace SamDriver.Decal
             materialPropertyBlock.SetFloat(maxAngleFadeRadiansID, MaxAngleFadeDegrees * Mathf.Deg2Rad);
             materialPropertyBlock.SetInt(flipUID, IsFlipU ? 1 : 0);
             materialPropertyBlock.SetInt(flipVID, IsFlipV ? 1 : 0);
+            materialPropertyBlock.SetFloat(offsetZID, OffsetZ);
 
             meshRenderer.sortingOrder = DrawOrder;
 
